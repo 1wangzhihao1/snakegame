@@ -54,7 +54,7 @@
 //		if(x==12)x=0;
 //		LED0=!LED0;	 
 //		delay_ms(1000);	
-			Snake_Body();
+			Sanke_Init();
 
 
 	} 

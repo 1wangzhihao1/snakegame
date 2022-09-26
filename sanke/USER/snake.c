@@ -4,30 +4,42 @@
 #include "timer.h"
 #include "lcd.h"
 
+float len;
+float score;
+float flag;
 
 
-void Snake_Body()
+void Snake_Move()
 {
-	float i;
+	
+}
+
+
+void Snake_Body()//ÉßÌå
+{
+	float x,y;
 //	LCD_Init();
-	for(i=100;i<=109;)
+	for(x=100;x<=118;)
 	{
-		LCD_Draw_Circle(i,100,3);
-		
-		
-		i=i+6;
-		if(i==109)
+		LCD_Draw_Circle(x,100,3);
+		x=x+6;
+		if(x==124)
 		{
-			i=100;
+			x=100;
 		}
 	}
 }
 
+void Game_Back()
+{
+	LCD_Fill(0,0,240,30,BLUE);
+	LCD_Fill(0,290,240,320,BLUE);
+}
 
 
 void Sanke_Init()//Ì°³ÔÉß³õÊ¼»¯
 {
-	
-		
+	Game_Back();
+	Snake_Body();
 }
 
