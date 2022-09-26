@@ -4,6 +4,9 @@
 #include "usart.h"
 #include "lcd.h"
 #include "key.h"
+#include "exti.h"
+#include "timer.h"
+#include "snake.h"
 
 //ALIENTEK Mini STM32开发板范例代码11
 //TFTLCD显示实验   
@@ -13,10 +16,13 @@
  { 
 //	 u8 x=0;
 //	u8 lcd_id[12];			//存放LCD ID字符串	
-//	delay_init();	    	 //延时函数初始化	  
+	delay_init();	    	 //延时函数初始化	  
 //	uart_init(9600);	 	//串口初始化为9600
-//	LED_Init();		  		//初始化与LED连接的硬件接口
-// 	LCD_Init();
+	LED_Init();		  		//初始化与LED连接的硬件接口
+ 	LCD_Init();
+//	EXTIX_Init();  //外部中断初始化
+//	TIM3_Int_Init(1999,7199);   //定时器3初始化
+//	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 //	POINT_COLOR=RED; 
 //	sprintf((char*)lcd_id,"LCD ID:%04X",lcddev.id);//将LCD ID打印到lcd_id数组。				 	
   	while(1) 
@@ -48,7 +54,7 @@
 //		if(x==12)x=0;
 //		LED0=!LED0;	 
 //		delay_ms(1000);	
-			
+			Snake_Body();
 
 
 	} 
