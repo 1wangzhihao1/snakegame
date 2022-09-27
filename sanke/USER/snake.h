@@ -7,7 +7,7 @@
 #define left 1;//宏定义蛇的前进方向
 #define right 2;
 #define up 3;
-#define dowm 4;
+#define down 4;
 
 
 typedef struct
@@ -23,6 +23,7 @@ void Sanke_Init(void);//游戏初始化
 void Snake_Body_Unit(u16 x,u16 y);//蛇体的一个长度单位
 void Game_Back(void);//游戏背景颜色
 void Snake_Off_Unit(u16 x,u16 y);//清除蛇体的一个长度单位
-
+void Snake_Move(u8 dir);//蛇的运动函数
+	
 #endif
 

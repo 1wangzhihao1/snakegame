@@ -8,6 +8,7 @@
 #include "timer.h"
 #include "snake.h"
 
+extern u8 dir;
 //ALIENTEK Mini STM32开发板范例代码11
 //TFTLCD显示实验   
 //技术支持：www.openedv.com
@@ -20,7 +21,8 @@
 //	uart_init(9600);	 	//串口初始化为9600
 	LED_Init();		  		//初始化与LED连接的硬件接口
  	LCD_Init();
-//	EXTIX_Init();  //外部中断初始化
+	Sanke_Init();
+	EXTIX_Init();  //外部中断初始化
 	TIM3_Int_Init(1999,7199);   //定时器3初始化
 //	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 //	POINT_COLOR=RED; 
@@ -55,7 +57,7 @@
 //		if(x==12)x=0;
 //		LED0=!LED0;	 
 //		delay_ms(1000);	
-		Sanke_Init();
-
+			Snake_Move(dir);
+			delay_ms(200);
 	} 
 }

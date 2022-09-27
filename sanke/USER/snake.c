@@ -15,23 +15,65 @@
 
 Snake snake;
 
-void Snake_Move(u8 dir)//蛇的移动函数
+
+//蛇的移动函数
+void Snake_Move(u8 dir)
 {
 	u8 i;
 	Snake_Off_Unit(snake.x[0],snake.y[0]);//清除第一个位置为空白位置
-	if(dir==1)//判断如果命令为左转
+		
+	if(dir==1)//判断如果方向为向左
 	{
 		for(i=0;i<snake.len-1;i++)
 		{
 			snake.x[i]=snake.x[i+1];
 			snake.y[i]=snake.y[i+1];
 		}
-		snake.x[snake.len-1]=snake.y[snake.len-2];
+		snake.x[snake.len-1]=snake.x[snake.len-2]-5;
+		snake.y[snake.len-1]=snake.y[snake.len-2];
+	}
+	
+	if(dir==2)//判断如果方向为向右
+	{
+		for(i=0;i<snake.len-1;i++)
+		{
+			snake.x[i]=snake.x[i+1];
+			snake.y[i]=snake.y[i+1];
+		}
+		snake.x[snake.len-1]=snake.x[snake.len-2]+5;
+		snake.y[snake.len-1]=snake.y[snake.len-2];
+	}
+	
+	if(dir==3)//判断如果方向为向上
+	{
+		for(i=0;i<snake.len-1;i++)
+		{
+			snake.x[i]=snake.x[i+1];
+			snake.y[i]=snake.y[i+1];
+		}
+		snake.x[snake.len-1]=snake.x[snake.len-2];
+		snake.y[snake.len-1]=snake.y[snake.len-2]+5;
+	}
+	
+	if(dir==4)//判断如果方向为向下
+	{
+		for(i=0;i<snake.len-1;i++)
+		{
+			snake.x[i]=snake.x[i+1];
+			snake.y[i]=snake.y[i+1];
+		}
+		snake.x[snake.len-1]=snake.x[snake.len-2];
+		snake.y[snake.len-1]=snake.y[snake.len-2]-5;
+	}
+	
+	for(i=0;i<snake.len;i++)//将蛇显示在lcd上
+	{
+		Snake_Body_Unit(snake.x[i],snake.y[i]);
 	}
 }
 
-
-void Snake_Body_Unit(u16 x,u16 y)//蛇体的一个长度单位
+//蛇体的一个长度单位
+void Snake_Body_Unit(u16 x,u16 y)
 {
 //	snake.x=150,snake.y=100;
 //	for(snake.x=100;snake.x<100+6*snake.len;)
@@ -41,7 +83,8 @@ void Snake_Body_Unit(u16 x,u16 y)//蛇体的一个长度单位
 //	}
 }
 
-void Snake_Off_Unit(u16 x,u16 y)//清除蛇体的一个长度单位
+//清除蛇体的一个长度单位
+void Snake_Off_Unit(u16 x,u16 y)
 {
 	LCD_Fill(x,y,x+5,y+5,WHITE);
 }
@@ -52,8 +95,8 @@ void Game_Back()
 	LCD_Fill(0,290,240,320,BLUE);
 }
 
-
-void Sanke_Init()//贪吃蛇初始化
+//贪吃蛇初始化
+void Sanke_Init()
 {
 	u8 i;
 	snake.flag=1;//初始化标志位
@@ -68,6 +111,8 @@ void Sanke_Init()//贪吃蛇初始化
 	{
 		Snake_Body_Unit(snake.x[i],snake.y[i]);
 	}
-	
 }
+
+
+
 
