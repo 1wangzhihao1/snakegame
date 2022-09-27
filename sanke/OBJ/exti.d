@@ -35,3 +35,5 @@
 ..\obj\exti.o: ..\SYSTEM\delay\delay.h
 ..\obj\exti.o: ..\SYSTEM\usart\usart.h
 ..\obj\exti.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\exti.o: ..\HARDWARE\LCD\lcd.h
+..\obj\exti.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

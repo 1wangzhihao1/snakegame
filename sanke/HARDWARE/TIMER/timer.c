@@ -1,5 +1,6 @@
 #include "timer.h"
 #include "led.h"
+#include "snake.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
 //Mini STM32开发板
@@ -19,6 +20,8 @@
 //arr：自动重装值。
 //psc：时钟预分频数
 //这里使用的是定时器3!
+
+
 void TIM3_Int_Init(u16 arr,u16 psc)
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
@@ -51,8 +54,9 @@ void TIM3_IRQHandler(void)   //TIM3中断
 {
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
 		{
-		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
-		LED1=!LED1;
+			TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx的中断待处理位:TIM 中断源 
+//			snake.x+=3;
+//			snake.y+=3;
 		}
 }
 

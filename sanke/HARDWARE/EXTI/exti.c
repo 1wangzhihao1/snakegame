@@ -3,6 +3,11 @@
 #include "key.h"
 #include "delay.h"
 #include "usart.h"
+#include "lcd.h"
+#include "stm32f10x.h"
+
+u8 dir;
+
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -85,8 +90,7 @@ void EXTI0_IRQHandler(void)
   delay_ms(10);    //消抖
 	if(WK_UP==1)
 	{	  
-		LED0=!LED0;
-		LED1=!LED1;	
+		dir=1;//左转
 	}
 	EXTI_ClearITPendingBit(EXTI_Line0);  //清除EXTI0线路挂起位
 }
@@ -94,7 +98,7 @@ void EXTI0_IRQHandler(void)
 {			
 	delay_ms(10);   //消抖			 
 	if(KEY0==0)	{
-		LED0=!LED0;
+		dir=2;//右转
 	}
  	 EXTI_ClearITPendingBit(EXTI_Line5);    //清除LINE5上的中断标志位  
 }
@@ -104,7 +108,7 @@ void EXTI15_10_IRQHandler(void)
 {
   delay_ms(10);    //消抖			 
   if(KEY1==0)	{
-		LED1=!LED1;
+		dir=3;//直走
 	}
 	 EXTI_ClearITPendingBit(EXTI_Line15);  //清除LINE15线路挂起位
 }
