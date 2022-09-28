@@ -7,7 +7,7 @@
 #include "stm32f10x.h"
 
 
- u8 dir;
+ u8 dir=2;
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -88,17 +88,48 @@ void EXTIX_Init(void)
 void EXTI0_IRQHandler(void)
 {
   delay_ms(10);    //消抖
-	if(WK_UP==1)
+	if(WK_UP==1)//左转
 	{	  
-		dir=1;//左转
+		if(dir==1)
+		{
+			dir=3;
+		}
+		else if(dir==2)
+		{
+			dir=4;
+		}
+		else if(dir==3)
+		{
+			dir=2;
+		}
+		else if(dir==4)
+		{
+			dir=1;
+		}
 	}
 	EXTI_ClearITPendingBit(EXTI_Line0);  //清除EXTI0线路挂起位
 }
  void EXTI9_5_IRQHandler(void)
 {			
 	delay_ms(10);   //消抖			 
-	if(KEY0==0)	{
-		dir=2;//右转
+	if(KEY0==0)//右转
+	{
+		if(dir==1)
+		{
+			dir=4;
+		}
+		else if(dir==2)
+		{
+			dir=3;
+		}
+		else if(dir==3)
+		{
+			dir=1;
+		}
+		else if(dir==4)
+		{
+			dir=2;
+		}
 	}
  	 EXTI_ClearITPendingBit(EXTI_Line5);    //清除LINE5上的中断标志位  
 }
@@ -106,9 +137,16 @@ void EXTI0_IRQHandler(void)
 
 void EXTI15_10_IRQHandler(void)
 {
-  delay_ms(10);    //消抖			 
-  if(KEY1==0)	{
-		dir=3;//直走
+	delay_ms(10);    //消抖			 
+	if(KEY1==0)	
+	{
+		while(1)
+		{
+			if(KEY0==0)
+			{
+				break;
+			}
+		}
 	}
-	 EXTI_ClearITPendingBit(EXTI_Line15);  //清除LINE15线路挂起位
+	EXTI_ClearITPendingBit(EXTI_Line15);  //清除LINE15线路挂起位
 }

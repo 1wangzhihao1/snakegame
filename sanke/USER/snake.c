@@ -16,6 +16,16 @@
 Snake snake;
 
 
+//游戏的开始画面
+void Game_Init_Back()
+{
+	LCD_ShowString(30,30,180,40,16,"Welcome to the Snake");
+	LCD_ShowString(200,300,40,40,12,"Start");
+}
+
+
+
+
 //蛇的移动函数
 void Snake_Move(u8 dir)
 {
@@ -24,6 +34,7 @@ void Snake_Move(u8 dir)
 		
 	if(dir==1)//判断如果方向为向左
 	{
+		snake.flag=1;
 		for(i=0;i<snake.len-1;i++)
 		{
 			snake.x[i]=snake.x[i+1];
@@ -44,7 +55,7 @@ void Snake_Move(u8 dir)
 		snake.y[snake.len-1]=snake.y[snake.len-2];
 	}
 	
-	if(dir==3)//判断如果方向为向上
+	if(dir==3)//判断如果方向为向下
 	{
 		for(i=0;i<snake.len-1;i++)
 		{
@@ -55,7 +66,7 @@ void Snake_Move(u8 dir)
 		snake.y[snake.len-1]=snake.y[snake.len-2]+5;
 	}
 	
-	if(dir==4)//判断如果方向为向下
+	if(dir==4)//判断如果方向为向上
 	{
 		for(i=0;i<snake.len-1;i++)
 		{
@@ -93,24 +104,29 @@ void Game_Back()
 {
 	LCD_Fill(0,0,240,30,BLUE);
 	LCD_Fill(0,290,240,320,BLUE);
+	
 }
 
 //贪吃蛇初始化
 void Sanke_Init()
 {
 	u8 i;
-	snake.flag=1;//初始化标志位
+	snake.flag=0;//初始化标志位
 	snake.len=4;//默认时蛇的长度为四个单位
 	snake.score=0;//默认游戏的初始分数为0
-	for(i=0;i<snake.len;i++)
-	{
-		snake.x[i]=100+i*5;
-		snake.y[i]=100;
-	}
-	for(i=0;i<snake.len;i++)
-	{
-		Snake_Body_Unit(snake.x[i],snake.y[i]);
-	}
+	Game_Init_Back();//游戏界面初始化
+//	if(snake.flag==1)
+//	{
+		for(i=0;i<snake.len;i++)
+		{
+			snake.x[i]=100+i*5;
+			snake.y[i]=100;
+		}
+		for(i=0;i<snake.len;i++)
+		{
+			Snake_Body_Unit(snake.x[i],snake.y[i]);
+		}
+//	}
 }
 
 

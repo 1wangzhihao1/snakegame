@@ -27,7 +27,7 @@ extern u8 dir;
 //	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 //	POINT_COLOR=RED; 
 //	sprintf((char*)lcd_id,"LCD ID:%04X",lcddev.id);//将LCD ID打印到lcd_id数组。	
-	 
+//	 LCD_Fill(0,0,240,320,BLUE);
   	while(1) 
 	{		 
 //		switch(x)

@@ -24,6 +24,7 @@ void Snake_Body_Unit(u16 x,u16 y);//蛇体的一个长度单位
 void Game_Back(void);//游戏背景颜色
 void Snake_Off_Unit(u16 x,u16 y);//清除蛇体的一个长度单位
 void Snake_Move(u8 dir);//蛇的运动函数
+void Game_Init_Back(void);//游戏的初始化界面
 	
 #endif
 
