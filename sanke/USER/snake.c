@@ -14,16 +14,54 @@
 //float sanke_y;//蛇的y坐标
 
 Snake snake;
+u8 flag;//游戏开始标志位
 
 
 //游戏的开始画面
-void Game_Init_Back()
+void Game_Init()
 {
-	LCD_ShowString(30,30,180,40,16,"Welcome to the Snake");
-	LCD_ShowString(200,300,40,40,12,"Start");
+		LCD_Fill(0,0,240,320,BLUE);
+		LCD_ShowString(40,30,200,40,16,"Welcome to the Snake!");
+		LCD_ShowString(65,150,150,30,16,"Gluttonous Snake");
+		LCD_ShowString(110,300,40,40,12,"Start");
+//		LCD_Fill(0,290,240,320,BLUE);
+		while(1)
+		{
+			if(flag==1)
+			{
+				LCD_Clear(WHITE);
+				break;
+			}
+		}
+	
 }
 
+void Snake_Dead()//蛇的死亡函数
+{
+	LCD_Clear(WHITE);
+	if(snake.flag==0)
+	{
+		LCD_Fill(0,0,240,320,BLACK);
+		LCD_ShowString(50,100,150,40,16,"You are Dead!");
+		LCD_ShowString(60,180,50,30,16,"Score");
+//	LCD_ShowChar(70,260,20,12,':');
+		LCD_ShowNum(100,220,snake.score,20,16);
+	}
+}
 
+void Snake_Food()//贪吃蛇吃果实函数
+{
+	
+	
+	
+	
+	
+	LCD_Fill(0,250,240,320,YELLOW);
+	LCD_ShowString(20,260,50,30,16,"Score");
+//	LCD_ShowChar(70,260,20,12,':');
+	LCD_ShowNum(65,260,snake.score,20,12);
+	
+}
 
 
 //蛇的移动函数
@@ -107,14 +145,19 @@ void Game_Back()
 	
 }
 
+
+	
+
+
 //贪吃蛇初始化
 void Sanke_Init()
 {
 	u8 i;
-	snake.flag=0;//初始化标志位
+	flag=0;//初始化标志位
+	snake.flag=1;//蛇的存亡标志位
 	snake.len=4;//默认时蛇的长度为四个单位
 	snake.score=0;//默认游戏的初始分数为0
-	Game_Init_Back();//游戏界面初始化
+//	Game_Init();//游戏界面初始化
 //	if(snake.flag==1)
 //	{
 		for(i=0;i<snake.len;i++)

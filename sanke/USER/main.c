@@ -20,10 +20,14 @@ extern u8 dir;
 	delay_init();	    	 //延时函数初始化	  
 //	uart_init(9600);	 	//串口初始化为9600
 	LED_Init();		  		//初始化与LED连接的硬件接口
- 	LCD_Init();
-	Sanke_Init();
+ 	LCD_Init();		
 	EXTIX_Init();  //外部中断初始化
+//	Game_Init();//游戏界面初始化
+//	Sanke_Init();//贪吃蛇游戏初始化
+
+	Snake_Food();
 	TIM3_Int_Init(1999,7199);   //定时器3初始化
+	
 //	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
 //	POINT_COLOR=RED; 
 //	sprintf((char*)lcd_id,"LCD ID:%04X",lcddev.id);//将LCD ID打印到lcd_id数组。	
@@ -57,7 +61,7 @@ extern u8 dir;
 //		if(x==12)x=0;
 //		LED0=!LED0;	 
 //		delay_ms(1000);	
-			Snake_Move(dir);
-			delay_ms(200);
+//			Snake_Move(dir);
+//			delay_ms(200);
 	} 
 }

@@ -5,6 +5,7 @@
 #include "usart.h"
 #include "lcd.h"
 #include "stm32f10x.h"
+#include "snake.h"
 
 
  u8 dir=2;
@@ -21,7 +22,8 @@
 //Copyright(C) 正点原子 2009-2019
 //All rights reserved	  
 ////////////////////////////////////////////////////////////////////////////////// 	  
- 
+
+extern u8 flag;//游戏开始标志位
  
 //外部中断初始化函数
 void EXTIX_Init(void)
@@ -109,7 +111,8 @@ void EXTI0_IRQHandler(void)
 	}
 	EXTI_ClearITPendingBit(EXTI_Line0);  //清除EXTI0线路挂起位
 }
- void EXTI9_5_IRQHandler(void)
+
+void EXTI9_5_IRQHandler(void)
 {			
 	delay_ms(10);   //消抖			 
 	if(KEY0==0)//右转
@@ -140,13 +143,19 @@ void EXTI15_10_IRQHandler(void)
 	delay_ms(10);    //消抖			 
 	if(KEY1==0)	
 	{
-		while(1)
+//		while(1)
+//		{
+//			if(KEY0==0)
+//			{
+//				break;
+//			}
+//		}
+		if(flag==0)//游戏开始标志位
 		{
-			if(KEY0==0)
-			{
-				break;
-			}
+			flag=1;
 		}
+		
+		
 	}
 	EXTI_ClearITPendingBit(EXTI_Line15);  //清除LINE15线路挂起位
 }
