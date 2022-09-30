@@ -1,4 +1,3 @@
-#include "led.h"
 #include "delay.h"
 #include "sys.h"
 #include "usart.h"
@@ -7,6 +6,9 @@
 #include "exti.h"
 #include "timer.h"
 #include "snake.h"
+#include "stm32f10x.h"
+#include "rtc.h"
+
 
 extern u8 dir;
 //ALIENTEK Mini STM32开发板范例代码11
@@ -17,15 +19,20 @@ extern u8 dir;
  { 
 //	 u8 x=0;
 //	u8 lcd_id[12];			//存放LCD ID字符串	
+	while(RTC_Init())		//RTC初始化	，一定要初始化成功
+	{ 
+//		LCD_ShowString(60,130,200,16,16,"RTC ERROR!   ");	
+		delay_ms(800);
+//		LCD_ShowString(60,130,200,16,16,"RTC Trying...");	
+	}		 
 	delay_init();	    	 //延时函数初始化	  
 //	uart_init(9600);	 	//串口初始化为9600
-	LED_Init();		  		//初始化与LED连接的硬件接口
+//	LED_Init();		  		//初始化与LED连接的硬件接口
  	LCD_Init();		
 	EXTIX_Init();  //外部中断初始化
-//	Game_Init();//游戏界面初始化
-//	Sanke_Init();//贪吃蛇游戏初始化
+	Game_Init();//游戏界面初始化
+	Sanke_Init();//贪吃蛇游戏初始化
 
-	Snake_Food();
 	TIM3_Int_Init(1999,7199);   //定时器3初始化
 	
 //	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2); //设置NVIC中断分组2:2位抢占优先级，2位响应优先级
@@ -61,7 +68,7 @@ extern u8 dir;
 //		if(x==12)x=0;
 //		LED0=!LED0;	 
 //		delay_ms(1000);	
-//			Snake_Move(dir);
-//			delay_ms(200);
+			Snake_Move(dir);
+			delay_ms(200);
 	} 
 }

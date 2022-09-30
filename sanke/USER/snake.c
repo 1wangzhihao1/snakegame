@@ -4,8 +4,7 @@
 #include "timer.h"
 #include "lcd.h"
 #include "timer.h"
-#include "snake.h"
-
+#include "stdlib.h"
 
 //float len;//蛇的身体长度
 //float score;//游戏得分情况
@@ -14,6 +13,7 @@
 //float sanke_y;//蛇的y坐标
 
 Snake snake;
+Food food;
 u8 flag;//游戏开始标志位
 
 
@@ -36,25 +36,63 @@ void Game_Init()
 	
 }
 
-void Snake_Dead()//蛇的死亡函数
+void Snake_Dead()//蛇的死亡函数,即游戏结束函数
 {
-	LCD_Clear(WHITE);
-	if(snake.flag==0)
+	if((snake.x[snake.len-1]<=1)||(snake.x[snake.len-1]>=240)||(snake.y[snake.len-1]<=1)||(snake.y[snake.len-1]>=240))
 	{
-		LCD_Fill(0,0,240,320,BLACK);
-		LCD_ShowString(50,100,150,40,16,"You are Dead!");
-		LCD_ShowString(60,180,50,30,16,"Score");
-//	LCD_ShowChar(70,260,20,12,':');
-		LCD_ShowNum(100,220,snake.score,20,16);
+		snake.flag=0;
+		LCD_Clear(WHITE);
+		if(snake.flag==0)
+		{
+			LCD_Fill(0,0,240,320,BLACK);
+			LCD_ShowString(50,100,150,40,16,"You are Dead!");
+			LCD_ShowString(80,180,50,30,16,"Score");
+	//	LCD_ShowChar(70,260,20,12,':');
+			LCD_ShowNum(70,220,snake.score,20,16);
+			while(1){}
+		}
 	}
 }
 
 void Snake_Food()//贪吃蛇吃果实函数
 {
+	u8 i;
+	if(snake.x[snake.len-1]==food.x && snake.y[snake.len-1]==food.y)//判断是否蛇吃到果实
+	{
+		snake.len++;
+		snake.score+=2;
+		snake.x[snake.len-1] = food.x;
+		snake.y[snake.len-1] = food.y;
+		food.flag = 1;//果实被吃掉
+	}
 	
-	
-	
-	
+	if(food.flag==0)//标志位为零时放置果实
+	{
+		Snake_Body_Unit(food.x,food.y);
+	}
+	if(food.flag==1)
+	{
+		srand(RTC_GetCounter());
+		while(1)
+		{
+			food.x=rand()%120+1;
+			food.y=rand()%120+1;
+			
+			for(i=0;i<snake.len;i++)
+			{
+				if((food.x==snake.x[i])&&(food.y==snake.y[i]))
+				{
+					break;
+				}
+				if(i==snake.len)
+				{
+					food.flag=0;
+					break;
+				}
+			}
+		}
+		
+	}
 	
 	LCD_Fill(0,250,240,320,YELLOW);
 	LCD_ShowString(20,260,50,30,16,"Score");
@@ -119,6 +157,10 @@ void Snake_Move(u8 dir)
 	{
 		Snake_Body_Unit(snake.x[i],snake.y[i]);
 	}
+	
+	Snake_Dead();
+	Snake_Food();
+	
 }
 
 //蛇体的一个长度单位
@@ -138,12 +180,12 @@ void Snake_Off_Unit(u16 x,u16 y)
 	LCD_Fill(x,y,x+5,y+5,WHITE);
 }
 
-void Game_Back()
-{
-	LCD_Fill(0,0,240,30,BLUE);
-	LCD_Fill(0,290,240,320,BLUE);
-	
-}
+//void Game_Back()
+//{
+//	LCD_Fill(0,0,240,30,BLUE);
+//	LCD_Fill(0,290,240,320,BLUE);
+//	
+//}
 
 
 	
